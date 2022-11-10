@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ThoughtDef>
+    <defName>MoodBoost</defName>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>mood boost</label>
+        <description>I backed my ship into a colonist the other day... Well, he just walked off, sometimes life's okay!</description>
+        <baseMoodEffect>100</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>MentalStrain</defName>
+    <durationDays>2</durationDays>
+    <stages>
+      <li>
+        <label>mental strain</label>
+        <description>The colony is under a lot of stress. Some of the survivors are starting to crack under the pressure. Keep an eye on them and try to help them cope before it's too late.</description>
+        <baseMoodEffect>-100</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>
