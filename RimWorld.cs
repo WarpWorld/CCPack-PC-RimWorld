@@ -18,7 +18,7 @@ public class RimWorld : SimpleTCPPack
         new Effect("Positive Effects","positive", ItemKind.Folder),
         new Effect("Animal Self Tame", "animalselftame","positive"),
         new Effect("Colony Inspiration", "inspirecolony","positive"),
-        new Effect("Harvest Bountry", "harvestbounty","positive"),
+        new Effect("Harvest Bountry", "harvestbounty","positive") { Duration = TimeSpan.FromSeconds(300) },
         new Effect("Healing Grace", "healinggrace","positive"),
         new Effect("New Recruit", "newrecruit","positive"),
         new Effect("Random Gift", "randomgift","positive"),
