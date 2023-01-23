@@ -13,7 +13,7 @@ public class RimWorld : SimpleTCPPack
 
     public override Game Game { get; } = new(160, "RimWorld", "RimWorld", "PC", ConnectorType.SimpleTCPConnector);
 
-    public override List<Effect> Effects => new()
+    public override List<Effect> Effects { get; } = new()
     {
         new Effect("Positive Effects","positive", ItemKind.Folder),
         new Effect("Animal Self Tame", "animalselftame","positive"),
