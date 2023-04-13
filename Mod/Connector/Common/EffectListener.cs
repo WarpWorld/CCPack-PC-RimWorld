@@ -39,7 +39,7 @@ namespace CrowdControl {
         }
 
         private void OnWorkerExecute(object sender, DoWorkEventArgs e) {
-            while (Worker.CancellationPending == false) {
+            while (Worker.CancellationPending == false && attempts <= 12) {
                 ConnectorStatus connectorStatus = Connector.Status;
                 switch (connectorStatus) {
                     case ConnectorStatus.Uninitialized:
@@ -60,6 +60,7 @@ namespace CrowdControl {
                         break;
                 }
             }
+            if (attempts > 12) e.Cancel = true;
         }
 
         private EffectCommand ParseMessage(string message) {
@@ -75,13 +76,22 @@ namespace CrowdControl {
         }
 
         private void HandleState_Connected() {
+            attempts = 0;
             string message = Connector.Recieve();
             EffectCommand effectCommand = ParseMessage(message);
             BroadcastEffect(effectCommand);
         }
 
         private void HandleState_Disconnected() {
-            //ModService.Instance.Alert($"Attempt{++attempts}...");
+            attempts++;
+            ModService.Instance.Alert($"Attempt {attempts}...");
+
+            if (attempts > 12)
+            {
+                Worker.CancelAsync();
+                ModService.Instance.Alert($"Stopping Crowd Control");
+                return;
+            }
             Connector.Connect();
 
             System.Threading.Thread.Sleep(10000);
