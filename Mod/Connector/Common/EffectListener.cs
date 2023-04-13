@@ -14,6 +14,8 @@ namespace CrowdControl {
         private string Hostname;
         private uint Port;
 
+        private uint attempts = 0;
+
         public EffectListener(string hostname, uint port) {
             Hostname = hostname;
             Port = port;
@@ -79,7 +81,10 @@ namespace CrowdControl {
         }
 
         private void HandleState_Disconnected() {
+            //ModService.Instance.Alert($"Attempt{++attempts}...");
             Connector.Connect();
+
+            System.Threading.Thread.Sleep(10000);
         }
 
         private void HandleState_Failure() {

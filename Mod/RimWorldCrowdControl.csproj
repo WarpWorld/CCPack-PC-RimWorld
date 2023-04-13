@@ -119,6 +119,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>cp "E:\Code\RimWorld-CrowdControl\RimWorldCrowdControl" "E:\Work\Crowd Control\Data\RimWorld\Mods" -r -f</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
