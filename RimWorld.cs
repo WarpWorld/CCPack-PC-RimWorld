@@ -6,7 +6,10 @@ using ConnectorType = CrowdControl.Common.ConnectorType;
 public class RimWorld : SimpleTCPPack
 {
     public override string Host => "0.0.0.0";
+
     public override ushort Port => 43384;
+
+    public override ISimpleTCPPack.MessageFormat MessageFormat => ISimpleTCPPack.MessageFormat.CrowdControlLegacy;
 
     public RimWorld(UserRecord player, Func<CrowdControlBlock, bool> responseHandler, Action<object> statusUpdateHandler) : base(player, responseHandler, statusUpdateHandler) { }
 
