@@ -9,12 +9,15 @@ namespace CrowdControl {
         public event EffectCommandHandler OnEffect;
 
         private BackgroundWorker Worker;
+        private BackgroundWorker WorkerB;
         private TcpConnector Connector;
         private const string ResponseText = "{{\"id\":{0},\"status\":{1},\"message\":\"\",\"timeRemaining\":0,\"type\":0}}";
         private string Hostname;
         private uint Port;
 
         private uint attempts = 0;
+        public static uint live = 30;
+
 
         public EffectListener(string hostname, uint port) {
             Hostname = hostname;
@@ -31,6 +34,11 @@ namespace CrowdControl {
             Worker.RunWorkerCompleted += OnWorkerFinished;
             Worker.WorkerSupportsCancellation = true;
             Worker.RunWorkerAsync();
+
+            WorkerB = new BackgroundWorker();
+            WorkerB.DoWork += OnWorkerExecuteB;
+            WorkerB.WorkerSupportsCancellation = true;
+            WorkerB.RunWorkerAsync();
         }
 
         public void ReportEffectStatus(EffectCommand message, EffectStatus status) {
@@ -39,28 +47,66 @@ namespace CrowdControl {
         }
 
         private void OnWorkerExecute(object sender, DoWorkEventArgs e) {
-            while (Worker.CancellationPending == false && attempts <= 12) {
-                ConnectorStatus connectorStatus = Connector.Status;
-                switch (connectorStatus) {
-                    case ConnectorStatus.Uninitialized:
-                        HandleState_Disconnected();
-                        break;
-                    case ConnectorStatus.Connected:
-                        HandleState_Connected();
-                        break;
-                    case ConnectorStatus.Disconnected:
-                        ModService.Instance.Alert("Notification.Disconnected");
-                        HandleState_Disconnected();
-                        break;
-                    case ConnectorStatus.Failure:
-                        ModService.Instance.Alert("Notification.Failure");
-                        HandleState_Failure();
-                        break;
-                    default:
-                        break;
+            while (Worker.CancellationPending == false && attempts <= 12)
+            {
+                try
+                {
+                    ConnectorStatus connectorStatus = Connector.Status;
+                    switch (connectorStatus)
+                    {
+                        case ConnectorStatus.Uninitialized:
+                            HandleState_Disconnected();
+                            break;
+                        case ConnectorStatus.Connected:
+                            HandleState_Connected();
+                            break;
+                        case ConnectorStatus.Disconnected:
+                            ModService.Instance.Alert("Notification.Disconnected");
+                            HandleState_Disconnected();
+                            break;
+                        case ConnectorStatus.Failure:
+                            ModService.Instance.Alert("Notification.Failure");
+                            HandleState_Failure();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //ModService.Instance.Alert(ex.ToString());
                 }
             }
             if (attempts > 12) e.Cancel = true;
+            
+        }
+
+        private void OnWorkerExecuteB(object sender, DoWorkEventArgs e)
+        {
+            while (WorkerB.CancellationPending == false && attempts<=12)
+            {
+                try
+                {
+                    //ModService.Instance.Alert($"1 {attempts} Live: {live}");
+
+                    if (attempts == 0)
+                    {
+                        if (live > 0) live--;
+                        else
+                        {
+                            EffectManager.PauseEffectQueue();
+                        }
+                    }
+                           
+                }
+                catch (Exception ex)
+                {
+                    //ModService.Instance.Alert(ex.ToString());
+                }
+                System.Threading.Thread.Sleep(5);
+            }
+            if (attempts > 12) e.Cancel = true;
+
         }
 
         private EffectCommand ParseMessage(string message) {

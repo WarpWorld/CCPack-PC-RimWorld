@@ -5,12 +5,12 @@ using System.Linq;
 namespace CrowdControl {
     public class EffectManager : GameComponent {
 
-        private Queue<EffectCommand> CommandQueue = new Queue<EffectCommand>();
-        private List<TimedEffect> TimedEffects = new List<TimedEffect>();
+        private static Queue<EffectCommand> CommandQueue = new Queue<EffectCommand>();
+        private static List<TimedEffect> TimedEffects = new List<TimedEffect>();
 
-        private Dictionary<string, Effect> EffectList;
-        private EffectListener EffectListener;
-        private Game Game = null;
+        private static Dictionary<string, Effect> EffectList;
+        private static EffectListener EffectListener;
+        private static Game Game = null;
 
         private int _counter = 0;
         private const int EFFECT_THROTTLE = 300;
@@ -31,7 +31,16 @@ namespace CrowdControl {
         public override void GameComponentTick() {
             ProcessEffectQueue();
             HandleTimedEffects();
+            EffectListener.live = 10;
+        }
 
+        public override void GameComponentUpdate()
+        {
+            if (Verse.Find.TickManager.Paused)
+            {
+                PauseEffectQueue();
+                EffectListener.live = 10;
+            }
         }
 
         public string GetConnectionStatusCode() {
@@ -70,6 +79,24 @@ namespace CrowdControl {
                     EffectListener.ReportEffectStatus(effectCommand, result);
                 }
                 else {
+                    ModService.Instance.Logger.Trace($"Effect of type '{effectCommand.type}' not found!");
+                    EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
+                }
+            }
+        }
+
+        public static void PauseEffectQueue()
+        {
+            if (CommandQueue.Count > 0)
+            {
+                EffectCommand effectCommand = CommandQueue.Dequeue();
+                if (EffectList.ContainsKey(effectCommand.code))
+                {
+                    EffectStatus result = EffectStatus.Retry;
+                    EffectListener.ReportEffectStatus(effectCommand, result);
+                }
+                else
+                {
                     ModService.Instance.Logger.Trace($"Effect of type '{effectCommand.type}' not found!");
                     EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
                 }
