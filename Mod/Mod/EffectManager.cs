@@ -29,14 +29,17 @@ namespace CrowdControl {
         }
 
         public override void GameComponentTick() {
-            ProcessEffectQueue();
-            HandleTimedEffects();
+            if (EffectListener.connected)
+            {
+                ProcessEffectQueue();
+                HandleTimedEffects();
+            }
             EffectListener.live = 10;
         }
 
         public override void GameComponentUpdate()
         {
-            if (Verse.Find.TickManager.Paused)
+            if (Verse.Find.TickManager.Paused && EffectListener.connected) 
             {
                 PauseEffectQueue();
                 EffectListener.live = 10;

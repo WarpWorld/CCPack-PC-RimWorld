@@ -17,6 +17,7 @@ namespace CrowdControl {
 
         private uint attempts = 0;
         public static uint live = 30;
+        public static bool connected = false;
 
 
         public EffectListener(string hostname, uint port) {
@@ -56,17 +57,21 @@ namespace CrowdControl {
                     {
                         case ConnectorStatus.Uninitialized:
                             HandleState_Disconnected();
+                            connected = false;
                             break;
                         case ConnectorStatus.Connected:
                             HandleState_Connected();
+                            connected = true;
                             break;
                         case ConnectorStatus.Disconnected:
                             ModService.Instance.Alert("Notification.Disconnected");
                             HandleState_Disconnected();
+                            connected = false;
                             break;
                         case ConnectorStatus.Failure:
                             ModService.Instance.Alert("Notification.Failure");
                             HandleState_Failure();
+                            connected = false;
                             break;
                         default:
                             break;
@@ -89,7 +94,7 @@ namespace CrowdControl {
                 {
                     //ModService.Instance.Alert($"1 {attempts} Live: {live}");
 
-                    if (attempts == 0)
+                    if (attempts == 0 && connected)
                     {
                         if (live > 0) live--;
                         else
@@ -135,6 +140,7 @@ namespace CrowdControl {
             if (attempts > 12)
             {
                 Worker.CancelAsync();
+                WorkerB.CancelAsync();
                 ModService.Instance.Alert($"Stopping Crowd Control");
                 return;
             }
@@ -144,6 +150,7 @@ namespace CrowdControl {
         }
 
         private void HandleState_Failure() {
+            System.Threading.Thread.Sleep(5000);
             Connector = new TcpConnector(Hostname, Port);
         }
 
