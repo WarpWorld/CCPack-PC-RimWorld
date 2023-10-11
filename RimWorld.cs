@@ -1,7 +1,8 @@
 ﻿using System;
 using CrowdControl.Common;
-using CrowdControl.Games.Packs;
 using ConnectorType = CrowdControl.Common.ConnectorType;
+
+namespace CrowdControl.Games.Packs.RimWorld;
 
 public class RimWorld : SimpleTCPPack
 {
