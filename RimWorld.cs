@@ -14,7 +14,7 @@ public class RimWorld : SimpleTCPPack
 
     public RimWorld(UserRecord player, Func<CrowdControlBlock, bool> responseHandler, Action<object> statusUpdateHandler) : base(player, responseHandler, statusUpdateHandler) { }
 
-    public override Game Game { get; } = new(160, "RimWorld", "RimWorld", "PC", ConnectorType.SimpleTCPConnector);
+    public override Game Game { get; } = new("RimWorld", "RimWorld", "PC", ConnectorType.SimpleTCPConnector);
 
     public override EffectList Effects { get; } = new Effect[]
     {
