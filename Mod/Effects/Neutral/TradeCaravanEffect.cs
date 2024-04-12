@@ -16,7 +16,7 @@ namespace CrowdControl {
             if (hasMap == false)
                 return EffectStatus.Failure;
 
-            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.FactionArrival, currentMap);
+            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.Special, currentMap);
 
             IntVec3 loc;
             ModService.Instance.TryFindRandomRoadEntryCell(currentMap, out loc);

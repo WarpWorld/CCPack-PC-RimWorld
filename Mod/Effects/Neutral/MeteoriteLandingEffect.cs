@@ -11,7 +11,7 @@ namespace CrowdControl {
             if (hasMap == false)
                 return EffectStatus.Failure;
 
-            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ShipChunkDrop, currentMap);
+            IncidentParms parms = StorytellerUtility.DefaultParmsNow(IncidentCategoryDefOf.ThreatBig, currentMap);
             IncidentWorker_MeteoriteImpact worker = new IncidentWorker_MeteoriteImpact();
 
             worker.def = IncidentDefOf.ShipChunkDrop;

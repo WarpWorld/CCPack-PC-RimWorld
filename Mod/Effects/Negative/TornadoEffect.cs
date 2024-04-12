@@ -29,7 +29,7 @@ namespace CrowdControl {
             int fireCount = ModService.Instance.Random.Next(MinCount, MaxCount);
             while (fireCount > 0) {
                 IntVec3 spawnLocation = CellFinder.RandomNotEdgeCell(30, currentMap);
-                bool wasSuccessful =  GenSpawn.Spawn(ThingDefOf.Tornado, spawnLocation, currentMap) != null;
+                bool wasSuccessful =  GenSpawn.Spawn(ThingDefOf.Fire, spawnLocation, currentMap) != null;
                 if (wasSuccessful) {
                     fireCount--;
                 }

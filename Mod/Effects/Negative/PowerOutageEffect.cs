@@ -31,7 +31,8 @@ namespace CrowdControl {
             int duration = Mathf.RoundToInt(durationInDays * 60000f);
 
             GameConditionManager gameConditionManager = currentMap.GameConditionManager;
-            GameConditionDef conditionDef = GameConditionDefOf.SolarFlare;
+            //GameConditionDef conditionDef = GameConditionDefOf.SolarFlare;
+            GameConditionDef conditionDef = GameConditionDefOf.Aurora;
 
             if (gameConditionManager.ConditionIsActive(conditionDef) == false) {
                 GameCondition gameCondition = GameConditionMaker.MakeCondition(incidentDef.gameCondition, duration);

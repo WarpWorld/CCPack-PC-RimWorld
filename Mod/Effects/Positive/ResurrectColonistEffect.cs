@@ -15,8 +15,8 @@ namespace CrowdControl {
 
             Pawn toRessurect = Find.ColonistBar.GetColonistsInOrder()?.Where(colonist => colonist.Dead).RandomElement();
             if (toRessurect != null) {
-                ResurrectionUtility.Resurrect(toRessurect);
-                
+                //ResurrectionUtility.Resurrect(toRessurect);
+                ResurrectionUtility.TryResurrect(toRessurect);
                 if (toRessurect.health.Dead == false) { 
                     SendCardNotification(toRessurect, LetterDefOf.PositiveEvent, command.viewerName);
                     return EffectStatus.Success;
