@@ -7,10 +7,9 @@
   <supportedVersions>
     <li>1.3</li>
     <li>1.4</li>
-    <li>1.5</li>
   </supportedVersions>
   <description>The Crowd Control mod allows streamers to interact with their viewers in new and interesting ways. By allowing the viewer to trigger various in-game effects, a streamer can make their broadcast more interactive and exciting.</description>
-  <modIconPath IgnoreIfNoMatchingField="True">CC</modIconPath>
+
   <modDependencies>
     <li>
       <packageId>brrainz.harmony</packageId>
