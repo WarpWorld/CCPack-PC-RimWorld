@@ -1,5 +1,4 @@
-﻿using System;
-using CrowdControl.Common;
+﻿using CrowdControl.Common;
 using ConnectorType = CrowdControl.Common.ConnectorType;
 
 namespace CrowdControl.Games.Packs.RimWorld;
