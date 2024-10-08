@@ -1,9 +1,10 @@
-﻿using CrowdControl.Common;
+﻿using ConnectorLib.SimpleTCP;
+using CrowdControl.Common;
 using ConnectorType = CrowdControl.Common.ConnectorType;
 
 namespace CrowdControl.Games.Packs.RimWorld;
 
-public class RimWorld : SimpleTCPPack
+public class RimWorld : SimpleTCPPack<SimpleTCPServerConnector>
 {
     public override string Host => "0.0.0.0";
 
@@ -13,7 +14,7 @@ public class RimWorld : SimpleTCPPack
 
     public RimWorld(UserRecord player, Func<CrowdControlBlock, bool> responseHandler, Action<object> statusUpdateHandler) : base(player, responseHandler, statusUpdateHandler) { }
 
-    public override Game Game { get; } = new("RimWorld", "RimWorld", "PC", ConnectorType.SimpleTCPConnector);
+    public override Game Game { get; } = new("RimWorld", "RimWorld", "PC", ConnectorType.SimpleTCPServerConnector);
 
     public override EffectList Effects { get; } = new Effect[]
     {
