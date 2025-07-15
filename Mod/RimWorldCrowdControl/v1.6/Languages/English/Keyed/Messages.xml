@@ -37,9 +37,6 @@
   <Settings.Factor.Title>    Multiplier</Settings.Factor.Title>
   <Settings.Factor.Description>The desired significance of this effect.</Settings.Factor.Description>
 
-  <Settings.Duration.Title>    Duration</Settings.Duration.Title>
-  <Settings.Duration.Description>The amount of time for this effect to be executed.</Settings.Duration.Description>
-
   <!-- Client states: -->
   <Network.Uninitialized>Uninitialized</Network.Uninitialized>
   <Network.Connected>Connected</Network.Connected>
@@ -146,5 +143,30 @@
   <orbitalbarrage.Title>Orbital Barrage</orbitalbarrage.Title>
   <orbitalbarrage.Notification>An orbital bombardment is incoming!</orbitalbarrage.Notification>
   <orbitalbarrage.Description>A ship in orbit is bombarding the area with lasers and missiles. What made them angry? Take cover!</orbitalbarrage.Description>
+
+  <foulfood.Title>Foul Food</foulfood.Title>
+  <foulfood.Notification>Some food has spoiled!</foulfood.Notification>
+  <foulfood.Description>Some of the colony's food stores has been contaminated with a foul substance. Best to dispose of the food before someone gets sick!</foulfood.Description>
+  <foulfood.Letter>A stack of {0} has spoiled!</foulfood.Letter>
+
+  <poweroutage.Title>Electromagnetic Pulse</poweroutage.Title>
+  <poweroutage.Notification>A solar flare has caused an electromagnetic pulse!</poweroutage.Notification>
+  <poweroutage.Description>Solar storms have triggered an EMP that has knocked out all electronic devices in the colony! Try to survive until the power comes back on...</poweroutage.Description>
+
+  <moodboost.Title>Mood Boost</moodboost.Title>
+  <moodboost.Notification>A colonist's mood has been boosted.</moodboost.Notification>
+  <moodboost.Description>A colonist's mood has been boosted by a strange force. They feel happier and more hopeful than ever before!</moodboost.Description>
+
+  <createhats.Title>Creation of Hats</createhats.Title>
+  <createhats.Notification>The colony has been graced by the presence of the Hat fairy!</createhats.Notification>
+  <createhats.Description>A strange being calling itself the Hat fairy has bestowed itself upon the land. It seems to be showering hats upon the colony...</createhats.Description>
+
+  <limbreplacement.Title>Limb Replacement</limbreplacement.Title>
+  <limbreplacement.Notification>A limb must be sacrificed!</limbreplacement.Notification>
+  <limbreplacement.Description>A divine whisper instructs one of the colonists to sacrifice a limb. They do so without thought and are immediately grafted into a new limb. It's a miracle!</limbreplacement.Description>
+
+  <hunterbecomeshunted.Title>Hunter Becomes Hunted</hunterbecomeshunted.Title>
+  <hunterbecomeshunted.Notification>The hunter has become the hunted!</hunterbecomeshunted.Notification>
+  <hunterbecomeshunted.Description>A hunter in the colony has become the target of a vicious creature. It's out for blood and won't stop until it gets it!</hunterbecomeshunted.Description>
 
 </LanguageData>

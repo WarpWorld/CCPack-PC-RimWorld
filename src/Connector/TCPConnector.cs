@@ -54,6 +54,7 @@ namespace CrowdControl {
                 Status = ConnectorStatus.Failure;
             }
             ModService.Instance.Logger.Trace($"Recieved: {result}");
+
             return result;
         }
 

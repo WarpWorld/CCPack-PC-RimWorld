@@ -6,6 +6,11 @@ namespace CrowdControl {
 
         public string Value { get; private set; }
 
+        public static EffectCode Test { get { return new EffectCode("test"); } }
+        public static EffectCode Colonist { get { return new EffectCode("colonist"); } }
+        public static EffectCode GiveItem { get { return new EffectCode("giveitem"); } }
+        public static EffectCode TakeItem { get { return new EffectCode("takeitem"); } }
+        public static EffectCode SetWeather { get { return new EffectCode("setweather"); } }
         public static EffectCode AnimalSelfTame { get { return new EffectCode("animalselftame"); } }
         public static EffectCode InspireColony { get { return new EffectCode("inspirecolony"); } }
         public static EffectCode HarvestBounty { get { return new EffectCode("harvestbounty"); } }

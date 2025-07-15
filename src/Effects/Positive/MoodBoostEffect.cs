@@ -26,6 +26,7 @@ namespace CrowdControl {
                         return EffectStatus.Success;
                     }
                 }
+                return EffectStatus.Retry;
             }
             return EffectStatus.Failure;
         }

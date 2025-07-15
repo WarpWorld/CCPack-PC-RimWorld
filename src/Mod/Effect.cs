@@ -13,7 +13,7 @@ namespace CrowdControl {
         public virtual void RegisterSettings(ModSettingsPack Settings) { }
         public void RegisterBaseSetting(ModSettingsPack Settings) {
             Enabled = Settings.GetHandle<bool>(
-                settingName: $"Settings.{Code}", title: $"{Code}.Title".Translate(), description: $"{Code}.Description".Translate(),
+                settingName: $"Settings.{Code.ToLower()}", title: $"{Code.ToLower()}.Title".Translate(), description: $"{Code.ToLower()}.Description".Translate(),
                 defaultValue: true);
             Enabled.CustomDrawer = rect => false;
             //Enabled.CanBeReset = false;
@@ -21,10 +21,10 @@ namespace CrowdControl {
 
         private void SendCardNotificationInternal(string label = null, string description = null, LetterDef notificationType = null, string triggeredBy = null, LookTargets lookTarget = null) {
             if (string.IsNullOrEmpty(label))
-                label = $"{Code}.Notification".Translate();
+                label = $"{Code.ToLower()}.Notification".Translate();
 
             if (string.IsNullOrEmpty(description))
-                description = $"{Code}.Description".Translate();
+                description = $"{Code.ToLower()}.Description".Translate();
             
             if (notificationType == null)
                 notificationType = LetterDefOf.NeutralEvent;

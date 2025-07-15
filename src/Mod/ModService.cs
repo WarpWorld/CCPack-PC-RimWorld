@@ -30,6 +30,13 @@ namespace CrowdControl {
         public SettingHandle<bool> ShowAdvanced;
 
         public Dictionary<string, Effect> EffectList = new Dictionary<string, Effect>() {
+            {EffectCode.Test, new Test()},
+
+            {EffectCode.TakeItem, new TakeItem()},
+            {EffectCode.GiveItem, new GiveItem()},
+            {EffectCode.SetWeather, new SetWeather()},
+            {EffectCode.Colonist, new Colonist()},
+
             {EffectCode.AnimalSelfTame, new AnimalSelfTameEffect()},
             {EffectCode.InspireColony, new InspireColonyEffect()},
             {EffectCode.HarvestBounty, new HarvestBountyEffect()},

@@ -77,12 +77,20 @@ namespace CrowdControl {
         private void ProcessEffectQueue() {
             if (CommandQueue.Count > 0) {
                 EffectCommand effectCommand = CommandQueue.Dequeue();
-                if (EffectList.ContainsKey(effectCommand.code)) {
-                    EffectStatus result = EffectList[effectCommand.code].Execute(effectCommand);
+
+
+                var code = effectCommand.code;
+                if(code.Contains("_")){
+                    code = code.Split('_')[0];
+                }
+
+
+                if (EffectList.ContainsKey(code)) {
+                    EffectStatus result = EffectList[code].Execute(effectCommand);
                     EffectListener.ReportEffectStatus(effectCommand, result);
                 }
                 else {
-                    ModService.Instance.Logger.Trace($"Effect of type '{effectCommand.type}' not found!");
+                    ModService.Instance.Alert($"Effect '{effectCommand.code}' not found!");
                     EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
                 }
             }
@@ -93,14 +101,21 @@ namespace CrowdControl {
             if (CommandQueue.Count > 0)
             {
                 EffectCommand effectCommand = CommandQueue.Dequeue();
-                if (EffectList.ContainsKey(effectCommand.code))
+
+                var code = effectCommand.code;
+                if (code.Contains("_"))
+                {
+                    code = code.Split('_')[0];
+                }
+
+                if (EffectList.ContainsKey(code))
                 {
                     EffectStatus result = EffectStatus.Retry;
                     EffectListener.ReportEffectStatus(effectCommand, result);
                 }
                 else
                 {
-                    ModService.Instance.Logger.Trace($"Effect of type '{effectCommand.type}' not found!");
+                    ModService.Instance.Alert($"Effect '{effectCommand.code}' not found!");
                     EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
                 }
             }

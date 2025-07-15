@@ -121,7 +121,7 @@ namespace CrowdControl {
                 effectCommand.TryParse();
             }
             catch (Exception ex) {
-                ModService.Instance.Logger.Trace($"Unable to parse command: {message} - {ex}");
+                //ModService.Instance.Alert($"Unable to parse command: {message} - {ex}");
             }
             return effectCommand;
         }
@@ -158,7 +158,7 @@ namespace CrowdControl {
             if (effectCommand.IsValid)
                 OnEffect.Invoke(this, effectCommand);
             else {
-                ModService.Instance.Logger.Trace($"Invalid effect command: {effectCommand}");
+                //ModService.Instance.Alert($"Invalid effect command: {effectCommand}");
             }
         }
 
