@@ -31,6 +31,7 @@ namespace CrowdControl {
             thing.stackCount = qty;
             spawnItems.Add(thing);
 
+            /*
             if(itemname == "Gun_BoltActionRifle")
             {
                 donationItems = DefDatabase<ThingDef>.AllDefs?.Where(t => t.defName == "Bullet_BoltActionRifle");
@@ -60,6 +61,7 @@ namespace CrowdControl {
                 thing.stackCount = 100;
                 spawnItems.Add(thing);
             }
+            */
 
             IntVec3 location = DropCellFinder.TradeDropSpot(currentMap);
             DropPodUtility.DropThingsNear(location, currentMap, spawnItems);
