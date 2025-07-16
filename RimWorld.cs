@@ -18,7 +18,7 @@ public class RimWorld : SimpleTCPPack<SimpleTCPServerConnector>
 
     public override EffectList Effects { get; } = new Effect[]
     {
-        new("test", "test"),
+        //new("test", "test"),
 
         new("Give 50 Simple Meals", "giveitem_MealSimple_50") { Category = "Give Items" },
         new("Give 50 Fine Meals", "giveitem_MealFine_50") { Category = "Give Items" },
