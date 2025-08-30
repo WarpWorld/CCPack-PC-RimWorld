@@ -29,6 +29,7 @@ public class RimWorld : SimpleTCPPack<SimpleTCPServerConnector>
         new("Give 100 Corn", "giveitem_RawCorn_100") { Image = "givefood", Category = "Give Items" , Description = "", Price = 25 },
         new("Give 100 Berries", "giveitem_RawBerries_100") { Image = "givefood", Category = "Give Items" , Description = "", Price = 25 },
         new("Give 100 Cow Meat", "giveitem_Meat-Cow_100") { Image = "givefood", Category = "Give Items" , Description = "", Price = 25 },
+        new("Give 25 Random Food", "giveitem_randfood_25") { Image = "givefood", Category = "Give Items" , Description = "", Price = 25 },
 
         new("Give 50 Logs", "giveitem_WoodLog_50") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 15 },
         new("Give 50 Steel", "giveitem_Steel_50") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 15 },
@@ -39,6 +40,9 @@ public class RimWorld : SimpleTCPPack<SimpleTCPServerConnector>
         new("Give 50 Granite", "giveitem_Granite_50") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 15 },
         new("Give 50 Wool", "giveitem_WoolSheep_50") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 25 },
         new("Give 25 Medicine", "giveitem_MedicineIndustrial_25") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 50 },
+        new("Give Resurrection Serum", "giveitem_MechSerumResurrector_1") { Image = "giveitem", Category = "Give Items" , Description = "", Price = 150 },
+
+        
 
         new("Clear", "setweather_Clear") { Note = "Weather",Category = "Weather" , Description = "Change the weather!", Price = 100 },
         new("Rain", "setweather_Rain") { Category = "Weather" , Description = "Change the weather!", Price = 100 },
@@ -56,6 +60,9 @@ public class RimWorld : SimpleTCPPack<SimpleTCPServerConnector>
         new("Give Helmet", "giveitem_Apparel-SimpleHelmet_1") { Image = "givearmor", Category = "Give Equipment" , Description = "Give the player a helmet!", Price = 15 },
         new("Give Parka", "giveitem_Apparel-Parka_1") { Image = "givearmor", Category = "Give Equipment" , Description = "Give the player a parka!", Price = 15 },
         new("Give Flak Vest", "giveitem_Apparel-FlakVest_1") { Image = "givearmor", Category = "Give Equipment" , Description = "Give the player a vest!", Price = 15 },
+        new("Give Random Melee Weapon", "giveitem_randmelee_1") { Image = "giveweapon", Category = "Give Equipment" , Description = "Give the player a weapon!", Price = 25 },
+        new("Give Random Ranged Weapon", "giveitem_randranged_1") { Image = "giveweapon", Category = "Give Equipment" , Description = "Give the player a weapon!", Price = 25 },
+        new("Give Random Apparel", "giveitem_randapparel_1") { Image = "givearmor", Category = "Give Equipment" , Description = "Give the player apparel!", Price = 25 },
 
         new("Foul Food", "foulfood") { Category = "Take Items" , Description = "A randomly selected food stack within the colony Stockpile Zone is destroyed!", Price = 25 },
         new("Take Random Material", "takeitem_material") { Category = "Take Items" , Description = "", Price = 50 },
