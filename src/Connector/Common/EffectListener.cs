@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using RimWorld;
 using Verse;
@@ -11,7 +11,7 @@ namespace CrowdControl {
         private BackgroundWorker Worker;
         private BackgroundWorker WorkerB;
         private TcpConnector Connector;
-        private const string ResponseText = "{{\"id\":{0},\"status\":{1},\"message\":\"\",\"timeRemaining\":0,\"type\":0}}";
+        private const string ResponseText = "{{\"id\":{0},\"status\":{1},\"message\":\"{2}\",\"timeRemaining\":0,\"type\":0}}";
         private string Hostname;
         private uint Port;
 
@@ -30,9 +30,17 @@ namespace CrowdControl {
             if (Worker != null) {
                 Worker.CancelAsync();
             }
+            if (WorkerB != null) {
+                WorkerB.CancelAsync();
+            }
+
+            attempts = 0;
+            connected = false;
+            live = 30;
+            Connector = new TcpConnector(Hostname, Port);
+
             Worker = new BackgroundWorker();
             Worker.DoWork += OnWorkerExecute;
-            Worker.RunWorkerCompleted += OnWorkerFinished;
             Worker.WorkerSupportsCancellation = true;
             Worker.RunWorkerAsync();
 
@@ -42,9 +50,21 @@ namespace CrowdControl {
             WorkerB.RunWorkerAsync();
         }
 
-        public void ReportEffectStatus(EffectCommand message, EffectStatus status) {
-            string response = string.Format(ResponseText, message.id, (int)status);
+        public void ReportEffectStatus(EffectCommand message, EffectStatus status, string statusMessage = "") {
+            string response = string.Format(ResponseText, message.id, (int)status, EscapeJson(statusMessage));
             Connector.Send(response);
+        }
+
+        private static string EscapeJson(string value) {
+            if (string.IsNullOrEmpty(value)) {
+                return string.Empty;
+            }
+
+            return value
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n");
         }
 
         private void OnWorkerExecute(object sender, DoWorkEventArgs e) {
@@ -64,12 +84,12 @@ namespace CrowdControl {
                             connected = true;
                             break;
                         case ConnectorStatus.Disconnected:
-                            ModService.Instance.Alert("Notification.Disconnected");
+                            ModService.Instance.Logger.Trace("Disconnected, retrying connection.");
                             HandleState_Disconnected();
                             connected = false;
                             break;
                         case ConnectorStatus.Failure:
-                            ModService.Instance.Alert("Notification.Failure");
+                            ModService.Instance.Logger.Trace("Connection failure, rebuilding connector.");
                             HandleState_Failure();
                             connected = false;
                             break;
@@ -77,7 +97,7 @@ namespace CrowdControl {
                             break;
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //ModService.Instance.Alert(ex.ToString());
                 }
@@ -104,7 +124,7 @@ namespace CrowdControl {
                     }
                            
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //ModService.Instance.Alert(ex.ToString());
                 }
@@ -120,7 +140,7 @@ namespace CrowdControl {
                 effectCommand = new EffectCommand(message);
                 effectCommand.TryParse();
             }
-            catch (Exception ex) {
+            catch (Exception) {
                 //ModService.Instance.Alert($"Unable to parse command: {message} - {ex}");
             }
             return effectCommand;
@@ -135,13 +155,13 @@ namespace CrowdControl {
 
         private void HandleState_Disconnected() {
             attempts++;
-            ModService.Instance.Alert($"Attempt {attempts}...");
+            ModService.Instance.Logger.Trace($"Connection attempt {attempts}...");
 
             if (attempts > 12)
             {
                 Worker.CancelAsync();
                 WorkerB.CancelAsync();
-                ModService.Instance.Alert($"Stopping Crowd Control");
+                ModService.Instance.Logger.Trace("Stopping Crowd Control connection attempts.");
                 return;
             }
             Connector.Connect();
@@ -160,11 +180,6 @@ namespace CrowdControl {
             else {
                 //ModService.Instance.Alert($"Invalid effect command: {effectCommand}");
             }
-        }
-
-        private void OnWorkerFinished(object sender, RunWorkerCompletedEventArgs e) {
-            System.Threading.Thread.Sleep(7000);
-            StartBackgroundListener();
         }
 
         public ConnectorStatus GetConnectionStatus() {

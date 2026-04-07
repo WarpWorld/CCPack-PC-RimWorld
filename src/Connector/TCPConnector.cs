@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net.Sockets;
 using RimWorld;
 using Verse;
@@ -19,14 +19,23 @@ namespace CrowdControl {
         }
 
         public void Connect() {
-            ModService.Instance.Alert("Notification.Attempting");
             ModService.Instance.Logger.Trace("Attempting connection...");
-            Client = new TcpClient(Hostname, (int)Port);
-            Stream = Client.GetStream();
-            if (Client.Connected) {
-                ModService.Instance.Alert("Notification.Connected");
-                ModService.Instance.Logger.Trace("Connected!");
-                Status = ConnectorStatus.Connected;
+            try {
+                Client = new TcpClient(Hostname, (int)Port);
+                Stream = Client.GetStream();
+                if (Client.Connected) {
+                    ModService.Instance.Logger.Trace("Connected!");
+                    Status = ConnectorStatus.Connected;
+                }
+                else {
+                    Status = ConnectorStatus.Disconnected;
+                }
+            }
+            catch (SocketException) {
+                Status = ConnectorStatus.Disconnected;
+            }
+            catch (Exception) {
+                Status = ConnectorStatus.Failure;
             }
         }
 

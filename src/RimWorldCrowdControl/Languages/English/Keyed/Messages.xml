@@ -74,6 +74,22 @@
   <tradecaravan.Notification>A trade caravan has arrived!</tradecaravan.Notification>
   <tradecaravan.Description>A trade caravan has come to the colony, offering goods and services in exchange for payment. This is a great opportunity to get some much-needed supplies!</tradecaravan.Description>
 
+  <friendlyreinforcements.Title>Friendly Reinforcements</friendlyreinforcements.Title>
+  <friendlyreinforcements.Notification>Friendly reinforcements have arrived!</friendlyreinforcements.Notification>
+  <friendlyreinforcements.Description>A group of friendly fighters has arrived to support and defend the colony.</friendlyreinforcements.Description>
+
+  <triggerincident.Title>Trigger Incident</triggerincident.Title>
+  <triggerincident.Notification>An incident has been triggered!</triggerincident.Notification>
+  <triggerincident.Description>Trigger a specific incident by def name.</triggerincident.Description>
+
+  <triggerquest.Title>Trigger Quest</triggerquest.Title>
+  <triggerquest.Notification>A quest has been generated!</triggerquest.Notification>
+  <triggerquest.Description>Trigger a specific quest by def name.</triggerquest.Description>
+
+  <randommonolithevent.Title>Random Monolith Event</randommonolithevent.Title>
+  <randommonolithevent.Notification>The monolith stirs.</randommonolithevent.Notification>
+  <randommonolithevent.Description>A random monolith-related anomaly event has been triggered.</randommonolithevent.Description>
+
   <meteoritelanding.Title>Meteorite Crash Landing</meteoritelanding.Title>
   <meteoritelanding.Notification>A meteorite has crashed nearby!</meteoritelanding.Notification>
   <meteoritelanding.Description>A meteorite has crash-landed near the colony. It could be valuable, so go and check it out!</meteoritelanding.Description>
@@ -104,6 +120,10 @@
   <harvestbounty.Notification>Your crops are bountiful this season!</harvestbounty.Notification>
   <harvestbounty.Description>You've been blessed! Your crops are healthy and plentiful. Make the most of this harvest, as you'll need all the food you can get. Be sure to hurry though, as this effect has a limited duration!</harvestbounty.Description>
 
+  <xenotyperecruit.Title>Xenotype Recruit</xenotyperecruit.Title>
+  <xenotyperecruit.Notification>A special recruit has arrived!</xenotyperecruit.Notification>
+  <xenotyperecruit.Description>A new recruit of the requested Biotech xenotype joins the colony and adopts the player's primary ideology.</xenotyperecruit.Description>
+
   <destroyhats.Title>Destroy All Hats</destroyhats.Title>
   <destroyhats.Notification>All hats must be destroyed!</destroyhats.Notification>
   <destroyhats.Description>For some reason, all hats must be destroyed. It's a mystery why, but it must be done. Your colonists rip their hats off their heads and start smashing them to bits. The horror!</destroyhats.Description>
@@ -123,6 +143,10 @@
   <resurrectcolonist.Title>Resurrection</resurrectcolonist.Title>
   <resurrectcolonist.Notification>A resurrection has occurred!</resurrectcolonist.Notification>
   <resurrectcolonist.Description>One of the colony's members has been resurrected from the dead. It's a miracle! Although, a little creepy.</resurrectcolonist.Description>
+
+  <resurrectallcolonists.Title>Mass Resurrection</resurrectallcolonists.Title>
+  <resurrectallcolonists.Notification>The dead rise again!</resurrectallcolonists.Notification>
+  <resurrectallcolonists.Description>A miraculous force sweeps through the colony, restoring every dead colonist to life.</resurrectallcolonists.Description>
 
   <researchbreakthrough.Title>Research Breakthrough</researchbreakthrough.Title>
   <researchbreakthrough.Notification>The colony has made a research breakthrough: {0}!</researchbreakthrough.Notification>
@@ -156,6 +180,14 @@
   <moodboost.Title>Mood Boost</moodboost.Title>
   <moodboost.Notification>A colonist's mood has been boosted.</moodboost.Notification>
   <moodboost.Description>A colonist's mood has been boosted by a strange force. They feel happier and more hopeful than ever before!</moodboost.Description>
+
+  <colonywidemoodboost.Title>Colony Wide Mood Boost</colonywidemoodboost.Title>
+  <colonywidemoodboost.Notification>The whole colony feels uplifted.</colonywidemoodboost.Notification>
+  <colonywidemoodboost.Description>A wave of optimism spreads through the colony, giving every colonist a powerful mood boost.</colonywidemoodboost.Description>
+
+  <instantgrowcrops.Title>Instant Grow Crops</instantgrowcrops.Title>
+  <instantgrowcrops.Notification>Your crops mature in an instant!</instantgrowcrops.Notification>
+  <instantgrowcrops.Description>A sudden burst of growth races through the fields, instantly maturing all planted harvestable crops.</instantgrowcrops.Description>
 
   <createhats.Title>Creation of Hats</createhats.Title>
   <createhats.Notification>The colony has been graced by the presence of the Hat fairy!</createhats.Notification>

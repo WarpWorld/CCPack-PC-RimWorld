@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using Verse;
 using System.Linq;
 
@@ -13,7 +13,9 @@ namespace CrowdControl {
         private static Game Game = null;
 
         private int _counter = 0;
+        private int _reconnectCounter = 0;
         private const int EFFECT_THROTTLE = 300;
+        private const int RECONNECT_THROTTLE = 600;
 
         public EffectManager(Game game) {
             Game = game;
@@ -22,19 +24,56 @@ namespace CrowdControl {
             ModService.Instance.Game = game;
         }
 
+        public override void StartedNewGame() {
+            EnsureListenerStarted();
+        }
+
         public override void LoadedGame() {
-            EffectListener = new EffectListener(hostname: ModService.Instance.Hostname, port: ModService.Instance.Port);
-            EffectListener.OnEffect += OnEffectRecieved;
-            EffectListener.StartBackgroundListener();
+            EnsureListenerStarted();
+        }
+
+        public override void FinalizeInit() {
+            EnsureListenerStarted();
+        }
+
+        public void EnsureConnection() {
+            EnsureListenerStarted();
+        }
+
+        private void EnsureListenerStarted() {
+            if (EffectListener == null) {
+                EffectListener = new EffectListener(hostname: ModService.Instance.Hostname, port: ModService.Instance.Port);
+                EffectListener.OnEffect += OnEffectRecieved;
+            }
+
+            if (EffectListener.GetConnectionStatus() != ConnectorStatus.Connected) {
+                EffectListener.StartBackgroundListener();
+            }
         }
 
         public override void GameComponentTick() {
-            if (EffectListener.connected)
-            {
+            if (EffectListener == null) {
+                EnsureListenerStarted();
+            }
+            else if (EffectListener.connected == false) {
+                _reconnectCounter++;
+                if (_reconnectCounter >= RECONNECT_THROTTLE) {
+                    _reconnectCounter = 0;
+                    EnsureListenerStarted();
+                }
+            }
+            else {
+                _reconnectCounter = 0;
+            }
+
+            if (EffectListener != null && EffectListener.connected) {
                 ProcessEffectQueue();
                 HandleTimedEffects();
             }
-            EffectListener.live = 10;
+
+            if (EffectListener != null) {
+                EffectListener.live = 10;
+            }
         }
 
         public override void GameComponentUpdate()
@@ -86,12 +125,13 @@ namespace CrowdControl {
 
 
                 if (EffectList.ContainsKey(code)) {
+                    ModService.Instance.LastEffectStatusMessage = string.Empty;
                     EffectStatus result = EffectList[code].Execute(effectCommand);
-                    EffectListener.ReportEffectStatus(effectCommand, result);
+                    EffectListener.ReportEffectStatus(effectCommand, result, ModService.Instance.LastEffectStatusMessage);
                 }
                 else {
                     ModService.Instance.Alert($"Effect '{effectCommand.code}' not found!");
-                    EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
+                    EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure, $"Effect '{effectCommand.code}' not found.");
                 }
             }
         }
@@ -111,12 +151,12 @@ namespace CrowdControl {
                 if (EffectList.ContainsKey(code))
                 {
                     EffectStatus result = EffectStatus.Retry;
-                    EffectListener.ReportEffectStatus(effectCommand, result);
+                    EffectListener.ReportEffectStatus(effectCommand, result, string.Empty);
                 }
                 else
                 {
                     ModService.Instance.Alert($"Effect '{effectCommand.code}' not found!");
-                    EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure);
+                    EffectListener.ReportEffectStatus(effectCommand, EffectStatus.Failure, $"Effect '{effectCommand.code}' not found.");
                 }
             }
         }

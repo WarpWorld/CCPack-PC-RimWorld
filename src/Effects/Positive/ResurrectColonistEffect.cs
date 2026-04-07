@@ -1,4 +1,4 @@
-﻿using RimWorld;
+using RimWorld;
 using Verse;
 using System.Linq;
 
@@ -13,7 +13,9 @@ namespace CrowdControl {
             if (hasMap == false)
                 return EffectStatus.Failure;
 
-            Pawn toRessurect = Find.ColonistBar.GetColonistsInOrder()?.Where(colonist => colonist.Dead).RandomElement();
+            Pawn toRessurect = PawnsFinder.AllMapsWorldAndTemporary_AliveOrDead
+                .Where(colonist => colonist != null && colonist.Dead && colonist.IsColonist && colonist.Faction == Faction.OfPlayer)
+                .RandomElementWithFallback();
             if (toRessurect != null) {
                 //ResurrectionUtility.Resurrect(toRessurect);
                 ResurrectionUtility.TryResurrect(toRessurect);

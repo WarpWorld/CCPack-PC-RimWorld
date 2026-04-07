@@ -1,4 +1,4 @@
-﻿using HugsLib.Settings;
+using HugsLib.Settings;
 using RimWorld;
 using System.Collections.Generic;
 using Verse;
@@ -64,6 +64,18 @@ namespace CrowdControl {
 
         protected void SendCardNotification(Map map, IntVec3 location, string label = null, string description = null, LetterDef notificationType = null, string triggeredBy = null) {
             SendCardNotificationInternal(label: label, description: description, notificationType: notificationType, triggeredBy: triggeredBy, lookTarget: new LookTargets(location, map));
+        }
+
+        protected EffectStatus SetEffectStatus(EffectStatus status, string message = null) {
+            ModService.Instance.LastEffectStatusMessage = message ?? string.Empty;
+            return status;
+        }
+
+        protected EffectStatus MissingRequiredDlc(EffectCommand command, string dlcName) {
+            string effectTitle = $"{Code.ToLower()}.Title".Translate().Resolve();
+            string message = $"{effectTitle} requires the {dlcName} DLC.";
+            //Find.LetterStack.ReceiveLetter("Missing DLC", message, LetterDefOf.NeutralEvent);
+            return SetEffectStatus(EffectStatus.Unavailable, message);
         }
     }
 }

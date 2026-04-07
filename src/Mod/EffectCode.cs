@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CrowdControl {
     public class EffectCode {
@@ -16,18 +16,26 @@ namespace CrowdControl {
         public static EffectCode HarvestBounty { get { return new EffectCode("harvestbounty"); } }
         public static EffectCode HealingGrace { get { return new EffectCode("healinggrace"); } }
         public static EffectCode NewRecruit { get { return new EffectCode("newrecruit"); } }
+        public static EffectCode XenotypeRecruit { get { return new EffectCode("xenotyperecruit"); } }
         public static EffectCode RandomGift { get { return new EffectCode("randomgift"); } }
         public static EffectCode SuperGift { get { return new EffectCode("supergift"); } }
         public static EffectCode ResearchBreakthrough { get { return new EffectCode("researchbreakthrough"); } }
         public static EffectCode ResurrectColonist { get { return new EffectCode("resurrectcolonist"); } }
+        public static EffectCode ResurrectAllColonists { get { return new EffectCode("resurrectallcolonists"); } }
         public static EffectCode MoodBoost { get { return new EffectCode("moodboost"); } }
+        public static EffectCode ColonyWideMoodBoost { get { return new EffectCode("colonywidemoodboost"); } }
+        public static EffectCode InstantGrowCrops { get { return new EffectCode("instantgrowcrops"); } }
         public static EffectCode CreateHats { get { return new EffectCode("createhats"); } }
+        public static EffectCode TriggerIncident { get { return new EffectCode("triggerincident"); } }
+        public static EffectCode TriggerQuest { get { return new EffectCode("triggerquest"); } }
 
         public static EffectCode AnimalStampede { get { return new EffectCode("animalstampede"); } }
         public static EffectCode MeteoriteLanding { get { return new EffectCode("meteoritelanding"); } }
         public static EffectCode CatDogRain { get { return new EffectCode("catdograin"); } }
         public static EffectCode RandomQuest { get { return new EffectCode("randomquest"); } }
         public static EffectCode TradeCaravan { get { return new EffectCode("tradecaravan"); } }
+        public static EffectCode FriendlyReinforcements { get { return new EffectCode("friendlyreinforcements"); } }
+        public static EffectCode RandomMonolithEvent { get { return new EffectCode("randommonolithevent"); } }
         public static EffectCode LimbReplacement { get { return new EffectCode("limbreplacement"); } }
         public static EffectCode HunterBecomesHunted { get { return new EffectCode("hunterbecomeshunted"); } }
 

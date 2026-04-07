@@ -1,4 +1,4 @@
-﻿using HugsLib.Settings;
+using HugsLib.Settings;
 using HugsLib.Utils;
 using System.Collections.Generic;
 using Verse;
@@ -22,6 +22,7 @@ namespace CrowdControl {
         public ModLogger Logger { get; internal set; }
         public EffectManager EffectManager { get; internal set; }
         public Game Game { get; internal set; }
+        public string LastEffectStatusMessage { get; set; }
 
         public SettingHandle<string> Status;
         public SettingHandle<string> Hostname;
@@ -42,18 +43,26 @@ namespace CrowdControl {
             {EffectCode.HarvestBounty, new HarvestBountyEffect()},
             {EffectCode.HealingGrace, new HealingGraceEffect()},
             {EffectCode.NewRecruit, new NewRecruitEffect()},
+            {EffectCode.XenotypeRecruit, new XenotypeRecruitEffect()},
             {EffectCode.RandomGift, new RandomGiftEffect()},
             {EffectCode.SuperGift, new SuperGiftEffect()},
             {EffectCode.ResearchBreakthrough, new ResearchBreakthroughEffect()},
             {EffectCode.ResurrectColonist, new ResurrectColonistEffect()},
+            {EffectCode.ResurrectAllColonists, new ResurrectAllColonistsEffect()},
             {EffectCode.MoodBoost, new MoodBoostEffect()},
+            {EffectCode.ColonyWideMoodBoost, new ColonyWideMoodBoostEffect()},
+            {EffectCode.InstantGrowCrops, new InstantGrowCropsEffect()},
             {EffectCode.CreateHats, new CreateHatsEffect()},
+            {EffectCode.TriggerIncident, new TriggerIncidentEffect()},
+            {EffectCode.TriggerQuest, new TriggerQuestEffect()},
 
             {EffectCode.AnimalStampede, new AnimalStampedeEffect()},
             {EffectCode.MeteoriteLanding, new MeteoriteLandingEffect()},
             {EffectCode.CatDogRain, new CatDogRainEffect()},
             {EffectCode.RandomQuest, new RandomQuestEffect()},
             {EffectCode.TradeCaravan, new TradeCaravanEffect()},
+            {EffectCode.FriendlyReinforcements, new FriendlyReinforcementsEffect()},
+            {EffectCode.RandomMonolithEvent, new RandomMonolithEventEffect()},
             {EffectCode.LimbReplacement, new LimbReplacementEffect()},
             {EffectCode.HunterBecomesHunted, new HunterBecomesHuntedEffect()},
 
@@ -124,6 +133,23 @@ namespace CrowdControl {
 
         public bool TryGetTradableFaction(out Faction faction) {
             faction = Find.FactionManager.RandomNonHostileFaction(allowDefeated: false, allowNonHumanlike: false, minTechLevel: TechLevel.Industrial);
+            return faction != null;
+        }
+
+        public bool TryGetFriendlyCombatFaction(out Faction faction, float points) {
+            IEnumerable<Faction> factions = Find.FactionManager.AllFactions
+                .Where(f => !f.IsPlayer
+                    && !f.Hidden
+                    && !f.temporary
+                    && !f.defeated
+                    && f.def.humanlikeFaction
+                    && !f.HostileTo(Faction.OfPlayer)
+                    && f.def.pawnGroupMakers != null
+                    && f.def.pawnGroupMakers.Any(x => x.kindDef == PawnGroupKindDefOf.Combat)
+                    && !f.def.raidsForbidden);
+
+            Faction ally = factions.FirstOrDefault(f => f.PlayerRelationKind == FactionRelationKind.Ally);
+            faction = ally ?? factions.OrderByDescending(f => f.PlayerGoodwill).FirstOrDefault();
             return faction != null;
         }
 
